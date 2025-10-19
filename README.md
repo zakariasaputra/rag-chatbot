@@ -23,6 +23,52 @@ The example use case focuses on **mental health and social policy in Indonesia**
 ---
 
 ## 🧩 Architecture Overview
+The architecture consists of **three core modules**:
+
+1. 🧱 **Document Indexing (Memory Builder)**
+
+   * Loads PDFs and TXT files from the `/data/sample_docs` folder.
+   * Splits content into smaller chunks using LangChain’s `RecursiveCharacterTextSplitter`.
+   * Encodes text using HuggingFace **Sentence Transformers** (`all-MiniLM-L6-v2`) into embeddings.
+   * Stores all embeddings in a **FAISS** vector database for fast semantic search.
+
+2. 🧠 **Model Fine-Tuning (LoRA Adapter)**
+
+   * A lightweight fine-tuning layer on top of the **TinyLlama** model using **PEFT + LoRA**.
+   * Trained with a small curated dataset (`mental_health_qa.jsonl`) to specialize in Indonesian mental health topics.
+   * The resulting adapter weights are automatically detected and loaded during runtime.
+
+3. ⚡ **RAG Chatbot Runtime (FastAPI)**
+
+   * A user sends a question through the `/ask` endpoint.
+   * The question is embedded and compared in FAISS to retrieve the most relevant text chunks.
+   * A prompt is dynamically composed with retrieved context and fed to **TinyLlama-LoRA** for grounded generation.
+   * The API responds with the final answer and the sources used for context.
+
+---
+
+### 🖼️ System Architecture Diagram
+
+Below is a visual overview of the system pipeline:
+
+![RAG Chatbot Architecture](assets/architecture_diagram.png)
+
+*(Diagram by Muhammad Zakaria Saputra — showing the relationship between Document Indexing, LoRA Fine-Tuning, and FastAPI Runtime.)*
+
+---
+
+### 🔧 Component Flow Summary
+
+| Phase              | Process                                         | Tools / Libraries                           |
+| ------------------ | ----------------------------------------------- | ------------------------------------------- |
+| **Data Ingestion** | Load PDFs & TXT files                           | `LangChain Community Loaders`               |
+| **Chunking**       | Split text into overlapping segments            | `RecursiveCharacterTextSplitter`            |
+| **Embedding**      | Convert chunks to dense vectors                 | `Sentence Transformers (Hugging Face)`      |
+| **Vector Storage** | Store and retrieve top-k relevant chunks        | `FAISS`                                     |
+| **Fine-Tuning**    | Train LoRA adapter for domain Q&A               | `PEFT`, `TinyLlama`, `Transformers`         |
+| **Inference**      | Answer user queries with retrieval + generation | `FastAPI`, `TinyLlama-LoRA`, `Transformers` |
+
+---
 
 
 ## ⚙️ Tech Stack
