@@ -1,0 +1,16 @@
+fastapi
+uvicorn
+langchain
+langchain-community
+langchain-huggingface
+ollama
+faiss-cpu
+sentence-transformers
+python-dotenv
+pypdf
+transformers
+peft
+datasets
+torch
+accelerate
+bitsandbytes
