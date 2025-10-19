@@ -236,6 +236,22 @@ Once generated, the main pipeline automatically detects and loads them:
 
 ---
 
+## 💬 Example Questions to Try
+
+Once the API is running, open [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) and test the `/ask` endpoint.
+Here are some questions you can try, all answerable based on the indexed documents:
+
+| Category                    | Example Question                                                             | Description                                                        |
+| --------------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| 🧠 **Mental Health Policy** | `What is pasung in Indonesia?`                                               | Tests contextual understanding of cultural practices.              |
+| 🏥 **Healthcare Barriers**  | `What are the main challenges to accessing mental health care in Indonesia?` | Retrieves key findings from the “Barriers and Facilitators” paper. |
+| 👶 **Early Development**    | `Why is the first 1000 days of life important?`                              | Checks retrieval from the “First 1000 Days” document.              |
+| 🌏 **Cultural Perspective** | `How do cultural beliefs affect mental health treatment?`                    | Combines reasoning with data from “Cultural Diversity in Beliefs”. |
+| 🧩 **Adolescent Wellbeing** | `What mental health problems are common among Indonesian adolescents?`       | Pulls content from “Problems Among Indonesian Adolescents.pdf”.    |
+| ⚖️ **Policy Evaluation**    | `What steps has Indonesia taken to eliminate pasung?`                        | Uses retrieved context to summarize national initiatives.          |
+
+---
+
 ## 📊 Example Use Cases
 
 * Summarizing insights from internal PDFs
